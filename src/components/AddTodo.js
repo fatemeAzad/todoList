@@ -8,7 +8,7 @@ const AddTodo = () => {
    
     window.location.reload(false);
   };
-
+// gerg
   return (
     <>
       <div className="container bg-white  w-80 rounded-lg  ml-20 mt-8 p-12 h-max absolute">
