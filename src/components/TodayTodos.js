@@ -7,7 +7,7 @@ const TodayTodos = () => {
   useEffect(() => {
     if (!todos) {
       dispatch(fetchTodos());
-    
+    // x
     }
   }, [todos]);
   const getCurrentDate = () => {
