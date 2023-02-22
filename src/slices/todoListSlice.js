@@ -7,7 +7,7 @@ const initialState = {
 
 export const fetchTodos = createAsyncThunk("fetch-todos", async () => {
   const response = await getTodos();
-  console.log(response);
+
   const data = response.data;
   return data;
 });

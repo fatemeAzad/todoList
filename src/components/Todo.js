@@ -1,6 +1,10 @@
+import { Formik } from "formik";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { createDoneTodos, deleteTodo } from "../services/service";
+import { fetchDoneTodos } from "../slices/donetodosSlice";
 import { fetchTodos } from "./../slices/todoListSlice";
+import { getDoneTodos, deleteDoneTodo } from './../services/service';
 const Todo = ({ todoId }) => {
   const dispatch = useDispatch();
   const todo = useSelector((state) =>
@@ -8,19 +12,29 @@ const Todo = ({ todoId }) => {
       return todo.id === todoId;
     })
   );
-
+  
   useEffect(() => {
     if (!todo) {
       dispatch(fetchTodos());
+      dispatch(fetchDoneTodos())
     }
   }, [todo]);
 
   const [isActive, setIsActive] = useState(false);
-  const handleFlag = () => {
+  const handleFlag = async (values) => {
     setIsActive((current) => !current);
+    const newTodo = await createDoneTodos(values);
+    const deletedTodo = await deleteTodo(todoId);
+  
   };
+  
+
+   
+
+  
 
   return (
+  
     <>
       <div>
         <div
@@ -49,21 +63,35 @@ const Todo = ({ todoId }) => {
               {todo.date ? todo.date : <p className="text-zinc-500">no date</p>}
             </p>
           </div>
-        
-          <button onClick={handleFlag}>
-
-            <div className="w-8 h-8 rounded-full mt-[-70px] bg-white absolute right-[380px]">
-              <i
-                className={
-                  isActive
-                    ? "fa fa-check  text-green-500 text-3xl"
-                    : "fa fa-check  text-green-500 text-3xl flag-active"
-                }
-                id="flag"
-                aria-hidden="true"
-              ></i>
-            </div>
-          </button>
+          <Formik
+            initialValues={{
+              "title": todo.title,
+              "description": todo.description,
+              "date": todo.date,
+              "id": todo.id
+            }}
+            onSubmit={handleFlag}
+          >
+            {(formik) => (
+              <form onSubmit={formik.handleSubmit}>
+                <button type="submit" onSubmit={handleFlag}>
+                  <div className="w-8 h-8 rounded-full mt-[-100px] bg-white absolute right-[380px]">
+                    <i
+                      className={
+                        isActive
+                          ? "fa fa-check  text-green-500 text-3xl"
+                          : "fa fa-check  text-green-500 text-3xl flag-active"
+                      }
+                      id="flag"
+                      aria-hidden="true"
+          
+                    ></i>
+                  </div>
+                </button>
+              </form>
+            )}
+           
+          </Formik>
         </div>
       </div>
     </>

@@ -5,8 +5,8 @@ import { todoItems } from "./todoItems";
 const AddTodo = () => {
   const handleSubmit = async (values) => {
     const newTodo = await createTodo(values);
-
-    console.log(values);
+   
+    window.location.reload(false);
   };
 
   return (
