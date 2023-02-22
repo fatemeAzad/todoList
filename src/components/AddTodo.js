@@ -11,7 +11,7 @@ const AddTodo = () => {
 // gerg
   return (
     <>
-      <div className="container bg-white  w-80 rounded-lg  ml-20 mt-8 p-12 h-max absolute">
+      <div className="container bg-white  w-80 rounded-lg  ml-20 mt-8 p-12  absolute">
         <h1 className="text-lg">
           What do you Have <span className="text-violet-800 ">TODO</span>
         </h1>
@@ -30,7 +30,7 @@ const AddTodo = () => {
               </div>
               <div>
                 <input
-                  className="pb-80 p-4 mt-2 left-0 top-0 relative text-start overflow-hidden rounded-lg bg-zinc-300"
+                  className="pb-40 p-4 mt-2 left-0 top-0 relative text-start overflow-hidden rounded-lg bg-zinc-300"
                   type="text"
                   {...formik.getFieldProps("description")}
                   onChange={formik.handleChange}
